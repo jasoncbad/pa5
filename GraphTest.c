@@ -67,11 +67,22 @@ int main(int argc, char* argv[]) {
   printGraph(stdout, G);
   printf("\n");
 
+  // transpose the graph
+  printf("\nTransposing this graph yields:\n");
+  Graph X = transpose(G);
+
+  printGraph(stdout, X);
+  printf("\n");
+
 
   // free the graph
   freeGraph(&G);
+  freeGraph(&X);
+  freeList(&result);
 
   G = NULL;
+  result = NULL;
+  X = NULL;
 
   printf("Test client finished..\n");
   return 0;
