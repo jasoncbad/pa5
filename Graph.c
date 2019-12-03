@@ -185,7 +185,7 @@ int getDiscover(Graph G, int u) {
     return G->discoverTimes[u];
   } else {
     printf("\tgetDiscover() -- precondition failed to pass! nothing done in this call");
-    return;
+    return -1;
   }
 }
 
@@ -198,7 +198,7 @@ int getFinish(Graph G, int u) {
     return G->finishTimes[u];
   } else {
     printf("\tgetFinish() -- precondition failed to pass! nothing done in this call");
-    return;
+    return -1;
   }
 }
 
@@ -420,7 +420,7 @@ Graph transpose(Graph G) {
 
   // we need to copy all fields
   // order was already constructed by call to newGraph
-  X->size = size(G);
+  X->size = getSize(G);
   X->lastSource = getSource(G);
 
   // now start building the adjacency lists:
@@ -435,7 +435,7 @@ Graph transpose(Graph G) {
     }
 
     // copy over other values too
-    X->colors[i] = G->colors[i]
+    X->colors[i] = G->colors[i];
     X->parents[i] = G->parents[i];
     X->distances[i] = G->distances[i];
     X->discoverTimes[i] = G->discoverTimes[i];
@@ -462,7 +462,7 @@ Graph copyGraph(Graph G) {
      X->adjacencyLists[i] = copyList(G->adjacencyLists[i]);
 
      // copy over other values too
-     X->colors[i] = G->colors[i]
+     X->colors[i] = G->colors[i];
      X->parents[i] = G->parents[i];
      X->distances[i] = G->distances[i];
      X->discoverTimes[i] = G->discoverTimes[i];

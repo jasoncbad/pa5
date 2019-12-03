@@ -41,4 +41,4 @@ void set(List L, int x);
 int equals(List A, List B);
 
 // added for PA5
-insertSorted(List A, int x);
+void insertSorted(List A, int x);
