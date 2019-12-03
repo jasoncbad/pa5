@@ -1,14 +1,14 @@
 # --------------------------------
 #
-#  Makefile | PA3
+#  Makefile | PA5
 #  Programmer: Jay Montoya
 #  UCSC ID: jaanmont | 1742317
 #
 #-----------------------------------
-all : FindPath
+all : FindComponents
 
-FindPath : FindPath.o Graph.o List.o
-	gcc -o FindPath FindPath.o Graph.o List.o
+FindComponents : FindComponents.o Graph.o List.o
+	gcc -o FindComponents FindComponents.o Graph.o List.o
 
 ListTest : ListTest.o List.o
 	gcc -o ListTest ListTest.o List.o
@@ -28,17 +28,8 @@ GraphTest.o : GraphTest.c Graph.h
 Graph.o : Graph.c Graph.h
 	gcc -c -std=c99 -Wall Graph.c
 
-BigIntegerTest : BigIntegerTest.o BigInteger.o List.o
-	gcc -o BigIntegerTest BigIntegerTest.o BigInteger.o List.o
-
-BigIntegerTest.o : BigIntegerTest.c BigInteger.h
-	gcc -c -std=c99 -Wall BigIntegerTest.c
-
-BigInteger.o :	BigInteger.c BigInteger.h
-	gcc -c -std=c99 -Wall BigInteger.c
-
-FindPath.o : FindPath.c Graph.h
-	gcc -c -std=c99 -Wall FindPath.c
+FindComponents.o : FindComponents.c Graph.h
+	gcc -c -std=c99 -Wall FindComponents.c
 
 clean :
-	rm -f *.o FindPath ListTest BigIntegerTest GraphTest
+	rm -f *.o FindComponents ListTest BigIntegerTest GraphTest

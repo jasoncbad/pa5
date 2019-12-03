@@ -1,6 +1,6 @@
 /* --------------------------------
 
-  Graph.c | PA4
+  Graph.c | PA5
   Programmer: Jay Montoya
   UCSC ID: jaanmont | 1742317
 
@@ -28,6 +28,11 @@ typedef struct GraphObj {
 
   int* distances; // array of ints whos ith element is the distance from the
                   // most recent source to vertex i.
+
+  // added for PA5
+  int* discoverTimes;
+  int* finishTimes;
+
 } GraphObj;
 
 // newMatrix()
@@ -51,6 +56,13 @@ Graph newGraph(int n) {
 
   // initialize the array of ints
   G->distances = malloc(sizeof(int) * (n + 1));
+
+  // initialize the array of ints
+  G->discoverTimes = malloc(sizeof(int) * (n + 1));
+
+  // initialize the array of ints
+  G->finishTimes = malloc(sizeof(int) * (n + 1));
+
 
   for (int i = 0; i < n+1; i++) {
     G->distances[i] = INF;
@@ -78,11 +90,15 @@ void freeGraph(Graph* pG) {
     free((*pG)->colors);
     free((*pG)->parents);
     free((*pG)->distances);
+    free((*pG)->discoverTimes);
+    free((*pG)->finishTimes);
 
     (*pG)->adjacencyLists = NULL;
     (*pG)->colors = NULL;
     (*pG)->parents = NULL;
     (*pG)->distances = NULL;
+    (*pG)->discoverTimes = NULL;
+    (*pG)->finishTimes = NULL;
 
     free((*pG));
     *pG = NULL;
@@ -156,6 +172,33 @@ void getPath(List L, Graph G, int u) {
   } else {
       printf("\tgetPath() -- precondition failed to pass! nothing done in this call");
       return;
+  }
+}
+
+// getDiscover()
+// returns the discover time for this particular vertex
+// after DFS is run..
+// PRE:  1<=u<=n=getOrder(G)
+int getDiscover(Graph G, int u) {
+  if ((u >= 1 && u <= getOrder(G)) && (getSource(G) != NIL)) {
+    // get the discover time from the discoverTimes array
+    return G->discoverTimes[u];
+  } else {
+    printf("\tgetDiscover() -- precondition failed to pass! nothing done in this call");
+    return;
+  }
+}
+
+// getFinish()
+// returns the finish time for this particular vertex
+// after DFS is run
+int getFinish(Graph G, int u) {
+  if ((u >= 1 && u <= getOrder(G)) && (getSource(G) != NIL)) {
+    // get the finish time from the finishTimes array
+    return G->finishTimes[u];
+  } else {
+    printf("\tgetFinish() -- precondition failed to pass! nothing done in this call");
+    return;
   }
 }
 
@@ -350,6 +393,12 @@ void BFS(Graph G, int s) {
   queue = NULL;
 }
 
+// DFS()
+// performs the DFS algorithm on the given graph object
+void DFS(Graph G, List S) {
+
+}
+
 // -----------------------------------------------------------------
 // other operations
 // -----------------------------------------------------------------
@@ -361,4 +410,63 @@ void printGraph(FILE* out, Graph G) {
     fprintf(out, "%d: ", (i+1));
     printList(out, (G->adjacencyLists)[i+1]);
   }
+}
+
+// transpose()
+// returns the transpose of graph G as a new graph
+Graph transpose(Graph G) {
+  // create the new graph to return
+  Graph X = newGraph(getOrder(G));
+
+  // we need to copy all fields
+  // order was already constructed by call to newGraph
+  X->size = size(G);
+  X->lastSource = getSource(G);
+
+  // now start building the adjacency lists:
+  for (int i = 1; i <= getOrder(G); i++) {
+    List GList = G->adjacencyLists[i];
+
+    // main loop of building the adjacency list
+    moveFront(GList);
+    while (index(GList) != -1) {
+      insertSorted(X->adjacencyLists[get(GList)], i);
+      moveNext(GList);
+    }
+
+    // copy over other values too
+    X->colors[i] = G->colors[i]
+    X->parents[i] = G->parents[i];
+    X->distances[i] = G->distances[i];
+    X->discoverTimes[i] = G->discoverTimes[i];
+    X->finishTimes[i] = G->finishTimes[i];
+  }
+
+  return X;
+}
+
+// copyGraph()
+// returns a deep copy of graph G as a new Graph object
+Graph copyGraph(Graph G) {
+   Graph X = newGraph(getOrder(G));
+
+   // we need to copy all fields
+   // order was already constructed by call to newGraph
+   X->size = size(G);
+   X->lastSource = getSource(G);
+
+   // now start building the adjacency lists:
+   for (int i = 1; i <= getOrder(G); i++) {
+
+     // take care of the list
+     X->adjacencyLists[i] = copyList(G->adjacencyLists[i]);
+
+     // copy over other values too
+     X->colors[i] = G->colors[i]
+     X->parents[i] = G->parents[i];
+     X->distances[i] = G->distances[i];
+     X->discoverTimes[i] = G->discoverTimes[i];
+     X->finishTimes[i] = G->finishTimes[i];
+   }
+   return X;
 }

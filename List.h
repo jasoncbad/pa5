@@ -1,6 +1,6 @@
 /* --------------------------------
 
-  List.h | PA4
+  List.h | PA5
   Programmer: Jay Montoya
   UCSC ID: jaanmont | 1742317
 
@@ -39,3 +39,6 @@ void printList(FILE* out, List L);
 List copyList(List L);
 void set(List L, int x);
 int equals(List A, List B);
+
+// added for PA5
+insertSorted(List A, int x);

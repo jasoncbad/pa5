@@ -1,6 +1,6 @@
 /* --------------------------------
 
-  List.c | PA4
+  List.c | PA5
   Programmer: Jay Montoya
   UCSC ID: jaanmont | 1742317
 
@@ -612,4 +612,20 @@ int equals(List A, List B) {
 
   // return true because both cursors went undefined at the same time
   return 1;
+}
+
+// insertSorted()
+// inserts an element into the list in a sorted position
+void insertSorted(List A, int x) {
+  moveFront(A);
+
+  while(index(A) != -1) {
+    if (x < get(A)) {
+      insertBefore(A, x);
+      return;
+    } else {
+      moveNext(A);
+    }
+  }
+  append(A, x);
 }
