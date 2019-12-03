@@ -452,7 +452,7 @@ Graph copyGraph(Graph G) {
 
    // we need to copy all fields
    // order was already constructed by call to newGraph
-   X->size = size(G);
+   X->size = getSize(G);
    X->lastSource = getSource(G);
 
    // now start building the adjacency lists:
