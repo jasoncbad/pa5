@@ -427,7 +427,7 @@ void DFS(Graph G, List S) {
   }
 
   free(&timePtr);
-  time = NULL;
+  timePtr = NULL;
 }
 
 // visit()
@@ -447,7 +447,7 @@ void visit(Graph G, int* time, int u) {
         G->parents[get(adjacencyList)] = u;
 
         // and now visit
-        visit(G, &time, get(adjacencyList));
+        visit(G, time, get(adjacencyList));
     }
 
   }
