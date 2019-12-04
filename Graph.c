@@ -12,6 +12,10 @@
 #include <stdlib.h>
 #include "Graph.h"
 
+
+// prototype
+void visit(Graph G, int* time, int u);
+
 // definition of a GraphObj
 typedef struct GraphObj {
   int order; // num vertices
@@ -407,13 +411,13 @@ void DFS(Graph G, List S) {
   }
 
   // time set to 0
-  int time = malloc(sizeof(int));
+  int time = malloc(sizeof(int*));
   time* = 0;
 
   // refer to the list for the order of processing vertices
   moveFront(S);
   while(index(S) != -1) {
-    if (G->colors[i] == 0) {
+    if (G->colors[get(S)] == 0) {
       visit(G, &time, get(S));
     }
 
@@ -436,7 +440,7 @@ void visit(Graph G, int* time, int u) {
   List adjacencyList = G->adjacencyLists[u];
   moveFront(adjacencyList);
   while(index(adjacencyList) != -1) { // for each v adjacent to u
-    if (G->colors[get(adjacencyList)] == WHITE) {
+    if (G->colors[get(adjacencyList)] == 0) {
         // parent[v] = u
         G->parents[get(adjacencyList)] = u;
 
@@ -448,7 +452,7 @@ void visit(Graph G, int* time, int u) {
 
   // color[u] = black
   G->colors[u] = 2;
-  G->finishTimes[u] = *time  = *time + 1; 
+  G->finishTimes[u] = *time  = *time + 1;
 }
 
 // -----------------------------------------------------------------
