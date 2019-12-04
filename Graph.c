@@ -449,6 +449,7 @@ void visit(Graph G, int* time, int u) {
         visit(G, time, get(adjacencyList));
     }
 
+    moveNext(adjacencyList);
   }
 
   // color[u] = black
