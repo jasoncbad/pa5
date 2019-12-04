@@ -67,6 +67,8 @@ Graph newGraph(int n) {
   for (int i = 0; i < n+1; i++) {
     G->distances[i] = INF;
     G->parents[i] = NIL;
+    G->discoverTimes[i] = UNDEF;
+    G->finishTimes[i] = UNDEF;
   }
 
   // initialize remaining values..
@@ -397,6 +399,56 @@ void BFS(Graph G, int s) {
 // performs the DFS algorithm on the given graph object
 void DFS(Graph G, List S) {
 
+  // for each vertex in the graph
+  for (int i = 1; i <= getOrder(G); i++) {
+    // set the color to white and the parent to nil
+    G->colors[i] = 0;
+    G->parents[i] = NIL;
+  }
+
+  // time set to 0
+  int time = malloc(sizeof(int));
+  time* = 0;
+
+  // refer to the list for the order of processing vertices
+  moveFront(S);
+  while(index(S) != -1) {
+    if (G->colors[i] == 0) {
+      visit(G, &time, get(S));
+    }
+
+    moveNext(S);
+  }
+
+  free(&time);
+  time = NULL;
+}
+
+// visit()
+// helper function used in hand with DFS
+void visit(Graph G, int* time, int u) {
+  G->colors[u] = 1; // color[u] = GRAY
+
+  *time = *time + 1;
+
+  G->discoverTimes[u] = *time;
+
+  List adjacencyList = G->adjacencyLists[u];
+  moveFront(adjacencyList);
+  while(index(adjacencyList) != -1) { // for each v adjacent to u
+    if (G->colors[get(adjacencyList)] == WHITE) {
+        // parent[v] = u
+        G->parents[get(adjacencyList)] = u;
+
+        // and now visit
+        visit(G, &time, get(adjacencyList));
+    }
+
+  }
+
+  // color[u] = black
+  G->colors[u] = 2;
+  G->finishTimes[u] = *time  = *time + 1; 
 }
 
 // -----------------------------------------------------------------

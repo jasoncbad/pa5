@@ -8,6 +8,7 @@
 */
 #define INF -1
 #define NIL 0
+#define UNDEF -2
 #include "List.h"
 
 typedef struct GraphObj* Graph;
@@ -25,7 +26,7 @@ int getDist(Graph G, int u);
 void getPath(List L, Graph G, int u);
 
 /** Added Accessors for PA5 **/
-int getDiscover(Graph G, int u);                     
+int getDiscover(Graph G, int u);
 int getFinish(Graph G, int u);
 
 /** Manipulation procedures **/
@@ -42,4 +43,4 @@ void printGraph(FILE* out, Graph G);
 
 /** Other Operations added for PA5 **/
 Graph transpose(Graph G);
-Graph copyGraph(Graph G);                           // TEST THIS
+Graph copyGraph(Graph G);
