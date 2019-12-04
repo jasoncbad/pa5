@@ -413,14 +413,14 @@ void DFS(Graph G, List S) {
   // time set to 0
   int time;
 
-  int* timePtr = time;
+  int* timePtr = &time;
   *timePtr = 0;
 
   // refer to the list for the order of processing vertices
   moveFront(S);
   while(index(S) != -1) {
     if (G->colors[get(S)] == 0) {
-      visit(G, &timePtr, get(S));
+      visit(G, timePtr, get(S));
     }
 
     moveNext(S);
