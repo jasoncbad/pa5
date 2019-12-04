@@ -67,12 +67,25 @@ int main(int argc, char* argv[]) {
   printGraph(stdout, G);
   printf("\n");
 
+  // adding more directed edges to make things complicated
+  addArc(G,2,6);
+  addArc(G,2,4);
+  addArc(G,1,5);
+  addArc(G,1,2);
+  addArc(G,1,3);
+  addArc(G,3,2);
+  addArc(G,4,1);
+  addArc(G,5,6);
+  addArc(G,6,3);
+  addArc(G,6,5);
+
   // transpose the graph
   printf("\nTransposing this graph yields:\n");
   Graph X = transpose(G);
 
   printGraph(stdout, X);
   printf("\n");
+
 
 
   // free the graph
