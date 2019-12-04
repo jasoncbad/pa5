@@ -459,6 +459,7 @@ Graph copyGraph(Graph G) {
    for (int i = 1; i <= getOrder(G); i++) {
 
      // take care of the list
+     freeList(X->adjacencyLists[i]);
      X->adjacencyLists[i] = copyList(G->adjacencyLists[i]);
 
      // copy over other values too
