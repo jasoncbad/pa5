@@ -426,7 +426,6 @@ void DFS(Graph G, List S) {
     moveNext(S);
   }
 
-  free(&timePtr);
   timePtr = NULL;
 }
 
