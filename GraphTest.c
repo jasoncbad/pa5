@@ -79,23 +79,38 @@ int main(int argc, char* argv[]) {
   addArc(G,6,3);
   addArc(G,6,5);
 
+  // print the graph contents
+  printf("\nGraphAdjacency list representation:\n");
+  printGraph(stdout, G);
+  printf("\n");
+
+
   // transpose the graph
   printf("\nTransposing this graph yields:\n");
   Graph X = transpose(G);
-
   printGraph(stdout, X);
   printf("\n");
+
+  // copying this graph
+  printf("\nCopying this graph yields:\n");
+  Graph Y = copyGraph(X);
+  printGraph(stdout, Y);
+  printf("\n");
+
+
 
 
 
   // free the graph
   freeGraph(&G);
   freeGraph(&X);
+  freeGraph(&Y);
   freeList(&result);
 
   G = NULL;
   result = NULL;
   X = NULL;
+  Y = NULL;
 
   printf("Test client finished..\n");
   return 0;

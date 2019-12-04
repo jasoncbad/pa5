@@ -25,8 +25,8 @@ int getDist(Graph G, int u);
 void getPath(List L, Graph G, int u);
 
 /** Added Accessors for PA5 **/
-int getDiscover(Graph G, int u);                     // TEST THIS
-int getFinish(Graph G, int u);                       // TEST THIS
+int getDiscover(Graph G, int u);                     
+int getFinish(Graph G, int u);
 
 /** Manipulation procedures **/
 void makeNull(Graph G);
@@ -41,5 +41,5 @@ void DFS(Graph G, List S);                          // MAKE THIS
 void printGraph(FILE* out, Graph G);
 
 /** Other Operations added for PA5 **/
-Graph transpose(Graph G);                           // TEST THIS
+Graph transpose(Graph G);
 Graph copyGraph(Graph G);                           // TEST THIS
