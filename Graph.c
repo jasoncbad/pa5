@@ -412,20 +412,21 @@ void DFS(Graph G, List S) {
 
   // time set to 0
   int time;
-  time = malloc(sizeof(int *));
-  *time = 0;
+
+  int* timePtr = time;
+  *timePtr = 0;
 
   // refer to the list for the order of processing vertices
   moveFront(S);
   while(index(S) != -1) {
     if (G->colors[get(S)] == 0) {
-      visit(G, &time, get(S));
+      visit(G, &timePtr, get(S));
     }
 
     moveNext(S);
   }
 
-  free(&time);
+  free(&timePtr);
   time = NULL;
 }
 
