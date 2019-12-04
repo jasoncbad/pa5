@@ -467,6 +467,11 @@ void printGraph(FILE* out, Graph G) {
     fprintf(out, "%d: ", (i+1));
     printList(out, (G->adjacencyLists)[i+1]);
   }
+
+  fprintf(out, "\n");
+  for (int i = 1; i <= getOrder(G); i++) {
+    fprintf(out, "%d:\tdiscover:%d\tfinish:%d\tparent:%d\n", i, G->discoverTimes[i], G->finishTimes[i], G->parents[i]);
+  }
 }
 
 // transpose()

@@ -98,6 +98,20 @@ int main(int argc, char* argv[]) {
   printf("\n");
 
 
+  // now we need to test DFS
+  List verticesOrder = newList();
+  append(verticesOrder, 1);
+  append(verticesOrder, 2);
+  append(verticesOrder, 3);
+  append(verticesOrder, 4);
+  append(verticesOrder, 5);
+  append(verticesOrder, 6);
+
+  printf("\nRunning DFS...\n\nDFS RESULTS:\n");
+  DFS(G, verticesOrder);
+
+  printGraph(stdout, G);
+  printf("\n");
 
 
 
