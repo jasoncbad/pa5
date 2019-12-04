@@ -411,8 +411,9 @@ void DFS(Graph G, List S) {
   }
 
   // time set to 0
-  int time = malloc(sizeof(int*));
-  time* = 0;
+  int time;
+  time = malloc(sizeof(int *));
+  *time = 0;
 
   // refer to the list for the order of processing vertices
   moveFront(S);
