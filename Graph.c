@@ -196,8 +196,7 @@ void getPath(List L, Graph G, int u) {
 // PRE:  1<=u<=n=getOrder(G)
 int getDiscover(Graph G, int u) {
   if ((u >= 1 && u <= getOrder(G))) {
-    printf("\n\tgetDiscover(%d) --> %d", u, G->discoverTimes[u]);
-
+    //printf("\n\tgetDiscover(%d) --> %d", u, G->discoverTimes[u]);
     // get the discover time from the discoverTimes array
     return G->discoverTimes[u];
   } else {
@@ -436,7 +435,7 @@ void BFS(Graph G, int s) {
 // performs the DFS algorithm on the given graph object
 void DFS(Graph G, List S) {
 
-  //PRE: check 
+  //PRE: check
   if (length(S) != getOrder(G)) {
     return;
   }

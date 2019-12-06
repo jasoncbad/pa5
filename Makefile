@@ -32,4 +32,4 @@ FindComponents.o : FindComponents.c Graph.h
 	gcc -c -std=c99 -Wall FindComponents.c
 
 clean :
-	rm -f *.o FindComponents ListTest BigIntegerTest GraphTest
+	rm -f *.o FindComponents ListTest GraphTest
