@@ -195,7 +195,7 @@ void getPath(List L, Graph G, int u) {
 // after DFS is run..
 // PRE:  1<=u<=n=getOrder(G)
 int getDiscover(Graph G, int u) {
-  if ((u >= 1 && u <= getOrder(G)) && (getSource(G) != NIL)) {
+  if ((u >= 1 && u <= getOrder(G))) {
     printf("\n\tgetDiscover(%d) --> %d", u, G->discoverTimes[u]);
 
     // get the discover time from the discoverTimes array
@@ -210,7 +210,7 @@ int getDiscover(Graph G, int u) {
 // returns the finish time for this particular vertex
 // after DFS is run
 int getFinish(Graph G, int u) {
-  if ((u >= 1 && u <= getOrder(G)) && (getSource(G) != NIL)) {
+  if ((u >= 1 && u <= getOrder(G))) {
     // get the finish time from the finishTimes array
     return G->finishTimes[u];
   } else {
