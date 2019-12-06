@@ -4,7 +4,7 @@
   Programmer: Jay Montoya
   UCSC ID: jaanmont | 1742317
 
-  Client Module for pa4
+  Client Module for pa5
 
 -----------------------------------
 */
@@ -113,17 +113,6 @@ int main(int argc, char** argv) {
         movePrev(topSort);
       }
     }
-    /*
-    while(index(topSort) != -1) {
-      if (isDescendant(Gt, get(topSort), root)) {
-        printf("%d ", get(topSort));
-        moveNext(topSort);
-      } else {
-        root = get(topSort);
-        break;
-      }
-    }
-    */
     fprintf(outFile, "\n");
   }
 
@@ -135,7 +124,6 @@ int main(int argc, char** argv) {
   G = NULL;
   freeGraph(&Gt);
   Gt = NULL;
-
 
   return 0;
 }
