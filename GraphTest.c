@@ -4,7 +4,7 @@
   Programmer: Jay Montoya
   UCSC ID: jaanmont | 1742317
 
-  Test client for Graph ADT for pa4.
+  Test client for Graph ADT for pa5.
 
 -----------------------------------
 */
