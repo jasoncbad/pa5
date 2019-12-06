@@ -4,6 +4,8 @@
   Programmer: Jay Montoya
   UCSC ID: jaanmont | 1742317
 
+  Header File for the Graph ADT
+
 -----------------------------------
 */
 #define INF -1
@@ -38,7 +40,7 @@ void addArc(Graph G, int u, int v);
 void BFS(Graph G, int s);
 
 /** Added Manipulation procedures for PA5 **/
-void DFS(Graph G, List S);                          // MAKE THIS
+void DFS(Graph G, List S);
 
 /** Other Operations **/
 void printGraph(FILE* out, Graph G);

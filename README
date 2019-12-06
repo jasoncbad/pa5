@@ -1,0 +1,40 @@
+
+
+Programming Assignment 5 | DFS
+
+
+Programmer: Jay Montoya
+UCSC ID: jaanmont | 1742317
+
+  This project creates a Graph ADT capable of executing Breadth-First AND
+Depth-First searching algorithms. The client FindComponents reads in an input
+file and determines the strongly connected components of the given graph,
+printing the components to an output file. 
+
+   The underlying data structure for the Graph ADT consists of 5 integer arrays
+(the color, parent, distance from source, discover and finish times) and an
+array of integer lists representing the adjacency list of the graph. The Graph
+ADT also contains int data types for the order, size, and last used source.
+
+The following operations have been added to PA4 to implement PA5:
+    GRAPH:
+      int getDiscover(Graph G, int u);
+      int getFinish(Graph G, int u);
+      List getTopologicalSort(Graph G);
+      int getStrongComponents(Graph G);
+      void DFS(Graph G, List S);
+      Graph transpose(Graph G);
+      Graph copyGraph(Graph G);
+      int isDescendant(Graph G, int x, int y);
+    LIST:
+      void insertSorted(List A, int x);
+      void insertReverseSorted(List A, int x);
+
+In the method DFS, sub-calls are made to visit() per the DFS algorithm.
+Timestamps are recorded by declaring time as a local variable in DFS,
+and passing a pointer to that variable to visit(). This allows visit() to
+be implemented as a private function, and also avoids implementing time as a
+global variable.
+
+  This project passes the test script completely and free of memory leaks as of
+12/5/2019.

@@ -631,7 +631,7 @@ void insertSorted(List A, int x) {
 }
 
 // insertReverseSorted()
-// inserts an element into the list in a reverse-sorted position
+// inserts an element into the list in a reverse-sorted position.
 void insertReverseSorted(List A, int x) {
   moveFront(A);
 

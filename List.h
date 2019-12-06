@@ -40,6 +40,6 @@ List copyList(List L);
 void set(List L, int x);
 int equals(List A, List B);
 
-// added for PA5
+// added specifically for PA5
 void insertSorted(List A, int x);
 void insertReverseSorted(List A, int x);

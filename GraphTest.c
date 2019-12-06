@@ -162,7 +162,7 @@ int main(int argc, char* argv[]) {
   printGraph(stdout, Y);
   printf("\n");
 
-  // calculate transpose of Y.
+  // calculate transpose of Y
   printf("Calculating transpose of Y...\n");
   Graph Yt = transpose(Y);
 
@@ -196,9 +196,7 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
   }
-
   printf("\n\n");
-
 
   // free the graph
   freeGraph(&Gt);

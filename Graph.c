@@ -210,7 +210,7 @@ int getDiscover(Graph G, int u) {
 // returns the finish time for this particular vertex
 // after DFS is run
 int getFinish(Graph G, int u) {
-  if ((u >= 1 && u <= getOrder(G))) {
+  if ((u >= 1 && u <= getOrder(G)))  {
     // get the finish time from the finishTimes array
     return G->finishTimes[u];
   } else {
@@ -435,6 +435,12 @@ void BFS(Graph G, int s) {
 // DFS()
 // performs the DFS algorithm on the given graph object
 void DFS(Graph G, List S) {
+
+  //PRE: check 
+  if (length(S) != getOrder(G)) {
+    return;
+  }
+
   clear(G->topologicalSort);
 
   // for each vertex in the graph
