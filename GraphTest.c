@@ -92,10 +92,10 @@ int main(int argc, char* argv[]) {
   printf("\n");
 
   // copying this graph
-  printf("\nCopying this graph yields:\n");
+  /*printf("\nCopying this graph yields:\n");
   Graph Y = copyGraph(X);
   printGraph(stdout, Y);
-  printf("\n");
+  printf("\n");*/
 
 
   // now we need to test DFS
@@ -113,15 +113,107 @@ int main(int argc, char* argv[]) {
   printGraph(stdout, G);
   printf("\n");
 
+  printf("Vertices by order of decreasing finish times: \n");
+  printList(stdout, verticesOrder);
+  printf("\n");
+
+  // calculate transpose of G.
+  printf("Calculating transpose of G...\n");
+  Graph Gt = transpose(G);
+
+  // run DFS on transpose but with the new list
+  printf("\nRunning DFS on Gt but with the new vertice ordering\n");
+  DFS(Gt, verticesOrder);
+
+  printf("\nResult of DFS on G transpose: \n");
+  printGraph(stdout, Gt);
+  printf("\n");
+
+  // create a new graph
+  printf("\nCreating a new graph...\n");
+  Graph Y = newGraph(8);
+  addArc(Y,1,2);
+  addArc(Y,2,5);
+  addArc(Y,2,6);
+  addArc(Y,3,4);
+  addArc(Y,4,8);
+  addArc(Y,5,1);
+  addArc(Y,6,5);
+  addArc(Y,6,7);
+  addArc(Y,7,3);
+  addArc(Y,7,4);
+  addArc(Y,8,7);
+  printGraph(stdout, Y);
+  printf("\n");
+
+  // call DFS
+  clear(verticesOrder);
+  append(verticesOrder, 1);
+  append(verticesOrder, 2);
+  append(verticesOrder, 3);
+  append(verticesOrder, 4);
+  append(verticesOrder, 5);
+  append(verticesOrder, 6);
+  append(verticesOrder, 7);
+  append(verticesOrder, 8);
+  printf("\nRunning DFS...\n\nDFS RESULTS:\n");
+  DFS(Y, verticesOrder);
+
+  printGraph(stdout, Y);
+  printf("\n");
+
+  // calculate transpose of Y.
+  printf("Calculating transpose of Y...\n");
+  Graph Yt = transpose(Y);
+
+  // run DFS on transpose but with the new list
+  printf("\nRunning DFS on Yt but with the new vertice ordering\n");
+  DFS(Yt, verticesOrder);
+
+  printf("\nResult of DFS on Y transpose: \n");
+  printGraph(stdout, Yt);
+  printf("\n");
+
+  // now find the number of strongly connected components
+  printf("\nY transpose contains %d strongly connected components:\n", getStrongComponents(Yt));
+
+  // print the strong components
+  List topSort = getTopologicalSort(Yt);
+  moveFront(topSort);
+  int root = front(topSort);
+  for (int i = 1; i <= getStrongComponents(Yt); i++) {
+    printf("Component %d: ", i);
+
+    while(index(topSort) != -1) {
+      if (isDescendant(Yt, get(topSort), root)) {
+        printf("%d ", get(topSort));
+        moveNext(topSort);
+      } else {
+        root = get(topSort);
+        break;
+      }
+    }
+
+    printf("\n");
+  }
+
+  printf("\n\n");
 
 
   // free the graph
+  freeGraph(&Gt);
+  freeGraph(&Yt);
   freeGraph(&G);
+  freeGraph(&Y);
   freeGraph(&X);
   freeGraph(&Y);
   freeList(&result);
+  freeList(&verticesOrder);
 
   G = NULL;
+  Gt = NULL;
+  verticesOrder = NULL;
+
   result = NULL;
   X = NULL;
   Y = NULL;

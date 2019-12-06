@@ -629,3 +629,19 @@ void insertSorted(List A, int x) {
   }
   append(A, x);
 }
+
+// insertReverseSorted()
+// inserts an element into the list in a reverse-sorted position
+void insertReverseSorted(List A, int x) {
+  moveFront(A);
+
+  while(index(A) != -1) {
+    if (x > get(A)) {
+      insertBefore(A, x);
+      return;
+    } else {
+      moveNext(A);
+    }
+  }
+  append(A, x);
+}

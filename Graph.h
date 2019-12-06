@@ -28,6 +28,8 @@ void getPath(List L, Graph G, int u);
 /** Added Accessors for PA5 **/
 int getDiscover(Graph G, int u);
 int getFinish(Graph G, int u);
+List getTopologicalSort(Graph G);
+int getStrongComponents(Graph G);
 
 /** Manipulation procedures **/
 void makeNull(Graph G);
@@ -44,3 +46,4 @@ void printGraph(FILE* out, Graph G);
 /** Other Operations added for PA5 **/
 Graph transpose(Graph G);
 Graph copyGraph(Graph G);
+int isDescendant(Graph G, int x, int y);

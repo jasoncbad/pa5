@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Graph.h"
+#define DEBUG 0
 
 
 // prototype
@@ -32,6 +33,9 @@ typedef struct GraphObj {
 
   int* distances; // array of ints whos ith element is the distance from the
                   // most recent source to vertex i.
+
+  List topologicalSort;
+
 
   // added for PA5
   int* discoverTimes;
@@ -67,6 +71,9 @@ Graph newGraph(int n) {
   // initialize the array of ints
   G->finishTimes = malloc(sizeof(int) * (n + 1));
 
+  // initialize the list for holding the topological sort
+  G->topologicalSort = newList();
+
 
   for (int i = 0; i < n+1; i++) {
     G->distances[i] = INF;
@@ -92,6 +99,7 @@ void freeGraph(Graph* pG) {
     for (int i = 0; i < (*pG)->order + 1; i++) {
       freeList(&((*pG)->adjacencyLists[i]));
     }
+    freeList(&((*pG)->topologicalSort));
     free((*pG)->adjacencyLists);
     free((*pG)->colors);
     free((*pG)->parents);
@@ -99,6 +107,7 @@ void freeGraph(Graph* pG) {
     free((*pG)->discoverTimes);
     free((*pG)->finishTimes);
 
+    (*pG)->topologicalSort = NULL;
     (*pG)->adjacencyLists = NULL;
     (*pG)->colors = NULL;
     (*pG)->parents = NULL;
@@ -206,6 +215,27 @@ int getFinish(Graph G, int u) {
     printf("\tgetFinish() -- precondition failed to pass! nothing done in this call");
     return -1;
   }
+}
+
+// getTopologicalSort()
+// retrieves the topological sort of vertices after DFS is run
+List getTopologicalSort(Graph G) {
+  return G->topologicalSort;
+}
+
+// getStrongComponents()
+// retrieves the number of strongly connected components in G..
+int getStrongComponents(Graph G) {
+  int x = 0;
+
+  // count the number of vertices with parent[x] = 0 ..
+  // by definition of an individual tree root
+  for (int i = 1; i <= getOrder(G); i++) {
+    if (G->parents[i] == 0) {
+      x++;
+    }
+  }
+  return x;
 }
 
 
@@ -402,6 +432,7 @@ void BFS(Graph G, int s) {
 // DFS()
 // performs the DFS algorithm on the given graph object
 void DFS(Graph G, List S) {
+  clear(G->topologicalSort);
 
   // for each vertex in the graph
   for (int i = 1; i <= getOrder(G); i++) {
@@ -427,7 +458,38 @@ void DFS(Graph G, List S) {
   }
 
   timePtr = NULL;
-}
+
+  // clear the given list and rebuild it by order of decreasing finish times
+  // The Graph's order gives the number of vertices
+  // and by PA specification the last finish time is equal to 2 * |V|.
+  clear(S);
+  for (int i = 1; i <= getOrder(G) ; i++) {
+     if (i == 1) { // for the first vertice just add it so we have a comparison
+       append(S, i);
+       continue;
+     }
+
+     moveFront(S);      // move cursor to front
+     int inserted = 0;  // flag indicating a successful insert
+
+
+     while(index(S) != -1) {
+
+       // compare the finish time.. insert before if it comes before
+       // the finish time of the cursor.. then break the while loop
+       if (G->finishTimes[i] > G->finishTimes[get(S)]) {
+         insertBefore(S, i);
+         inserted = 1;
+         break;
+       }
+       moveNext(S);
+     }
+     // if the while loop runs dead.. check the inserted flag and append
+     if (inserted == 0) {
+       append(S, i);
+     }
+  }
+} // end of DFS
 
 // visit()
 // helper function used in hand with DFS
@@ -454,12 +516,26 @@ void visit(Graph G, int* time, int u) {
 
   // color[u] = black
   G->colors[u] = 2;
+  prepend(G->topologicalSort, u);
   G->finishTimes[u] = *time  = *time + 1;
 }
 
 // -----------------------------------------------------------------
 // other operations
 // -----------------------------------------------------------------
+
+// isDescendant()
+// determines whether x is some isDescendant of y.
+int isDescendant(Graph G, int x, int y) {
+  int cursor = x;
+  while(cursor != y) {
+      if (cursor == 0) {
+        return 0;
+      }
+      cursor = getParent(G, cursor);
+  }
+  return 1;
+}
 
 // printGraph()
 // prints graph to the filestream indicated by out.
@@ -469,9 +545,11 @@ void printGraph(FILE* out, Graph G) {
     printList(out, (G->adjacencyLists)[i+1]);
   }
 
-  fprintf(out, "\n");
-  for (int i = 1; i <= getOrder(G); i++) {
-    fprintf(out, "%d:\tdiscover:%d\tfinish:%d\tparent:%d\n", i, G->discoverTimes[i], G->finishTimes[i], G->parents[i]);
+  if (DEBUG) {
+    fprintf(out, "\n");
+    for (int i = 1; i <= getOrder(G); i++) {
+      fprintf(out, "%d:\tdiscover:%d\tfinish:%d\tparent:%d\n", i, G->discoverTimes[i], G->finishTimes[i], G->parents[i]);
+    }
   }
 }
 

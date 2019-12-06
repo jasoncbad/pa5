@@ -63,17 +63,69 @@ int main(int argc, char** argv) {
   fprintf(outFile, "\n");
 
   // RUN DFS on G and G^T ..
-  Graph Gt = transpose(G);
+  List vertexOrder = newList();
+  for (int i = 1; i <= getOrder(G); i++) {
+    append(vertexOrder, i);
+  }
 
+  // FIRST CALL TO DFS
+  DFS(G, vertexOrder);
+
+  // SECOND CALL TO DFS
+  Graph Gt = transpose(G);
+  DFS(Gt, vertexOrder);
 
   // Determine the strong components of G ..
+  fprintf(outFile, "G contains %d strongly connected components:\n", getStrongComponents(Gt));
 
-  // print the strong components of G to the output file in topological order..
+  // print those stronk components
+  // now find the number of strongly connected components
 
+  // print the strong components
+  List topSort = getTopologicalSort(Gt);
+  moveFront(topSort);
+  int root = -1;
+  for (int i = 1; i <= getStrongComponents(Gt); i++) {
+    fprintf(outFile, "Component %d: ", i);
 
+    // move back
+    moveBack(topSort);
+    int counter = i;
 
+    while(index(topSort) != -1) {
+      if (getParent(Gt, get(topSort)) == 0) {
+        counter--;
+      } else {
+        movePrev(topSort);
+        continue;
+      }
 
-
+      if (counter == 0) {
+        root = get(topSort);
+        // weve reached the desired grouping
+        while(index(topSort) != -1 && isDescendant(Gt, get(topSort), root)) {
+          // print the element and move next
+          fprintf(outFile, "%d ", get(topSort));
+          moveNext(topSort);
+        }
+        break;
+      } else {
+        movePrev(topSort);
+      }
+    }
+    /*
+    while(index(topSort) != -1) {
+      if (isDescendant(Gt, get(topSort), root)) {
+        printf("%d ", get(topSort));
+        moveNext(topSort);
+      } else {
+        root = get(topSort);
+        break;
+      }
+    }
+    */
+    fprintf(outFile, "\n");
+  }
 
   // houskeeping
   fclose(inFile);
