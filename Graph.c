@@ -200,7 +200,7 @@ int getDiscover(Graph G, int u) {
     return G->discoverTimes[u];
   } else {
     printf("\tgetDiscover() -- precondition failed to pass! nothing done in this call");
-    return -1;
+    return UNDEF;
   }
 }
 
@@ -213,7 +213,7 @@ int getFinish(Graph G, int u) {
     return G->finishTimes[u];
   } else {
     printf("\tgetFinish() -- precondition failed to pass! nothing done in this call");
-    return -1;
+    return UNDEF;
   }
 }
 
