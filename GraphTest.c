@@ -100,12 +100,12 @@ int main(int argc, char* argv[]) {
 
   // now we need to test DFS
   List verticesOrder = newList();
-  append(verticesOrder, 1);
-  append(verticesOrder, 2);
-  append(verticesOrder, 3);
-  append(verticesOrder, 4);
-  append(verticesOrder, 5);
-  append(verticesOrder, 6);
+  prepend(verticesOrder, 1);
+  prepend(verticesOrder, 2);
+  prepend(verticesOrder, 3);
+  prepend(verticesOrder, 4);
+  prepend(verticesOrder, 5);
+  prepend(verticesOrder, 6);
 
   printf("\nRunning DFS...\n\nDFS RESULTS:\n");
   DFS(G, verticesOrder);

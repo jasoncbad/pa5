@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Graph.h"
-#define DEBUG 0
+#define DEBUG 1
 
 
 // prototype
@@ -196,6 +196,9 @@ void getPath(List L, Graph G, int u) {
 // PRE:  1<=u<=n=getOrder(G)
 int getDiscover(Graph G, int u) {
   if ((u >= 1 && u <= getOrder(G)) && (getSource(G) != NIL)) {
+
+    printf("\ngetDiscover(%d) => %d\n", u, G->discoverTimes[u]);
+
     // get the discover time from the discoverTimes array
     return G->discoverTimes[u];
   } else {
