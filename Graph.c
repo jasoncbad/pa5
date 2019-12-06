@@ -201,11 +201,7 @@ int getDiscover(Graph G, int u) {
     // get the discover time from the discoverTimes array
     return G->discoverTimes[u];
   } else {
-<<<<<<< HEAD
-    printf("\tgetDiscover() -- precondition failed to pass! nothing done in this call");
-=======
-    ////printf("\tgetDiscover() -- precondition failed to pass! nothing done in this call");
->>>>>>> f4f5eef59ddb994dedb7395a5af811d39d49a175
+    //printf("\tgetDiscover() -- precondition failed to pass! nothing done in this call");
     return UNDEF;
   }
 }
@@ -218,11 +214,8 @@ int getFinish(Graph G, int u) {
     // get the finish time from the finishTimes array
     return G->finishTimes[u];
   } else {
-<<<<<<< HEAD
-    printf("\tgetFinish() -- precondition failed to pass! nothing done in this call");
-=======
-    ////printf("\tgetFinish() -- precondition failed to pass! nothing done in this call");
->>>>>>> f4f5eef59ddb994dedb7395a5af811d39d49a175
+
+    //printf("\tgetFinish() -- precondition failed to pass! nothing done in this call");
     return UNDEF;
   }
 }
